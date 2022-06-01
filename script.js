@@ -41,6 +41,57 @@ function showRemaining(end){
     hoursDisplay.innerHTML = hours + ' horas';
     minutesDisplay.innerHTML = minutes + ' minutos';
     secondsDisplay.innerHTML = seconds + ' segundos';  
+    
+    setInterval(function(){
+    ++howLongLeft
+    localStorage.setItem('howlongleft',howLongLeft);
+    }, 1000);
+
+    let selectEvent = (event) => {
+        let selected = event.target.id // 'christmas' - comes in as a string
+    
+        //change display depending on option selected. through event id
+        switch(selected) {
+            case "newYear":
+                setInterval(function(){
+                    --howLongLeft
+                    showRemaining(newYear)
+                    localStorage.setItem('newYear',newYear);
+                    }, 1000);
+                theCountdown('New Years');
+                aestheticControl(selected);
+                break;
+    
+            case "christmas":
+                setInterval(showRemaining(christmas), 1000);
+                theCountdown('Christmas');
+                aestheticControl(selected);
+                break;
+    
+            case "halloween":
+                setInterval(showRemaining(halloween), 1000);
+                theCountdown('Halloween');
+                aestheticControl(selected);
+                break;
+    
+            case "friendsDay":
+                setInterval(showRemaining(friendsDay), 1000);
+                theCountdown('Dia del Amigo');
+                aestheticControl('friendsDay');
+                break;
+    
+            case "iGetToSeeThem":
+                setInterval(showRemaining(iGetToSeeThem), 1000);
+                theCountdown('I get to see them!');
+                aestheticControl('iGetToSeeThem')
+                break;
+                }
+               
+        
+    }
+    //pay attention to when i click on the button options and excecute function when i do
+    options.forEach((date) => { date.addEventListener("click", selectEvent); });
+    
 }
 function theCountdown(forWhat){
     document.querySelector('.selected-date').innerHTML = forWhat;
@@ -50,47 +101,8 @@ function aestheticControl(addedClass){
 }
 
 //default style
-let timer = setInterval(showRemaining(newYear), 1000);
-document.querySelector('.selected-date').innerHTML = 'new year';
+
+document.querySelector('.selected-date').innerHTML = 'I get to see them!';
 
 
-let selectEvent = (event) => {
-    let selected = event.target.id // 'christmas' - comes in as a string
-
-    //change display depending on option selected. through event id
-    switch(selected) {
-        case "newYear":
-            setInterval(showRemaining(newYear), 1000);
-            theCountdown('New Years');
-            aestheticControl(selected);
-            break;
-
-        case "christmas":
-            setInterval(showRemaining(christmas), 1000);
-            theCountdown('Christmas');
-            aestheticControl(selected);
-            break;
-
-        case "halloween":
-            setInterval(showRemaining(halloween), 1000);
-            theCountdown('Halloween');
-            aestheticControl(selected);
-            break;
-
-        case "friendsDay":
-            setInterval(showRemaining(friendsDay), 1000);
-            theCountdown('Dia del Amigo');
-            aestheticControl('friendsDay');
-            break;
-
-        case "iGetToSeeThem":
-            setInterval(showRemaining(iGetToSeeThem), 1000);
-            theCountdown('I get to see them!');
-            aestheticControl('iGetToSeeThem')
-            break;
-            }
-           
-    
-}
-//pay attention to when i click on the button options and excecute function when i do
-options.forEach((date) => { date.addEventListener("click", selectEvent); });
+showRemaining(iGetToSeeThem)

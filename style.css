@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap');
 
+:root {
+    --var-header: rgb(44, 46, 57);
+    --var-header-text: white;
+}
 *{
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
@@ -10,16 +14,21 @@ body{
     height:100vh;
 }
 .newYear{
-    background: linear-gradient(22deg, #06324f 50%, #fee47a 10%);
+    background: linear-gradient(22deg, #06324f 50%, #598c0d 10%);
     color: white;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.397);
+
 }
 .christmas{
     background: linear-gradient(22deg,  #21372c 50%,  #b74947 10%);
+    color: white;
+
 }
 
 .halloween{
     background: linear-gradient(22deg, #1c1e1d 50%, #fb8037 10%);
+    color: white;
+
 }
 .friendsDay{
     background: linear-gradient(22deg, #5588A6 50%, #7CBFBF 10%);
@@ -31,23 +40,58 @@ body{
 header{
     display: flex;
     justify-content: space-around;
-
+    height: 7vh;
+}
+.today-is, strong{
+    font-weight: normal;
+}
+.text-above{
+    margin: 50px;
+    font-size: 3em;
+}
+.numbers div{
+    font-size: 2em;
+    padding-left: 25px;
+}
+button{
+    border: none;
+    background-color: var(--var-header);
+    color: var(--var-header-text);
+}
+button:hover{
+    background-color: var(--var-header);
+    color: hotpink;
 }
 .text-above{
     text-align: center;
 }
+.text-below{
+    position: absolute;
+    font-weight: bold;
+    font-size: 3em;
+    bottom: 80px;
+    margin-left: 10px;
+}
 .numbers{
+    position: absolute;
     display: flex;
-    margin: auto;
-    width: 600px;
+    left: 20%;
+    top: 40%;
+    width: 900px;
     justify-content: space-around;
+
 }
 
 
 footer, header{
-    background-color: rgb(44, 46, 57);
-    color: white;
+    background-color: var(--var-header);
+    color: var(--var-header-text);
     width: 100%;
+}
+footer{
+    position: absolute;
+    padding: 20px;
+    bottom: 0;
 }
 a{
     text-decoration: none;
