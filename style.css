@@ -5,9 +5,29 @@
     font-family: 'Raleway', sans-serif;
     margin: 0px;
 }
+
 body{
-    background-color: rgb(249, 224, 237);
+    height:100vh;
 }
+.newYear{
+    background: linear-gradient(22deg, #06324f 50%, #fee47a 10%);
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.397);
+}
+.christmas{
+    background: linear-gradient(22deg,  #21372c 50%,  #b74947 10%);
+}
+
+.halloween{
+    background: linear-gradient(22deg, #1c1e1d 50%, #fb8037 10%);
+}
+.friendsDay{
+    background: linear-gradient(22deg, #5588A6 50%, #7CBFBF 10%);
+}
+.iGetToSeeThem{
+    background: linear-gradient(22deg,  #FFA0C5 50%, #FCEDF2 10%);
+}
+
 header{
     display: flex;
     justify-content: space-around;

@@ -1,24 +1,23 @@
-//me interesa hacer distintos countdowns y cambiar los colores por tema
 //DOM SELECTIONS
 let currentDateDisplay = document.querySelector('.date');
 let daysDisplay = document.querySelector('.days');
 let hoursDisplay = document.querySelector('.hours');
 let minutesDisplay = document.querySelector('.min');
 let secondsDisplay = document.querySelector('.sec');
-let options = document.querySelectorAll(".options")
-
+let options = document.querySelectorAll(".options");
+let body = document.querySelector('body');
 
 let today = new Date();
 
 // SELECTION OPTIONS - END DATES
 const YEAR = today.getFullYear();
-console.log('this year is =>',YEAR)
+console.log('this year is =>',YEAR);
 
-let newyear = new Date(`January 1, ${YEAR} 00:00:01`)
-let christmas = new Date(`December 25, ${YEAR} 00:00:01`)
-let halloween = new Date(`October 31, ${YEAR} 00:00:01`)
-let diaDelAmigo = new Date(`July 20, ${YEAR} 00:00:01`)
-let terminaCurso = new Date(`November 2, 2022 00:00:01`)
+let newYear = new Date(`January 1, ${YEAR + 1} 00:00:01`);
+let christmas = new Date(`December 25, ${YEAR} 00:00:01`);
+let halloween = new Date(`October 31, ${YEAR}  00:00:01`);
+let friendsDay = new Date(`July 20, ${YEAR}  00:00:01`);
+let iGetToSeeThem = new Date(`November 21, 2022 00:00:01`);
 
 const _second = 1000;
 const _minute = _second * 60 ;
@@ -28,9 +27,9 @@ const _day = _hour * 24;
 
 
 function showRemaining(end){
-    let howLongLeft =  today - end  ;
-    console.log( 'esto es end = ' + end)
-    //dividir differencia en seccions
+    let howLongLeft =  end - today  ;
+
+    //divide difference
     let days = Math.floor(howLongLeft / _day);
     let hours = Math.floor((howLongLeft % _day) / _hour);
     let minutes = Math.floor((howLongLeft % _hour)  / _minute);
@@ -43,39 +42,55 @@ function showRemaining(end){
     minutesDisplay.innerHTML = minutes + ' minutos';
     secondsDisplay.innerHTML = seconds + ' segundos';  
 }
+function theCountdown(forWhat){
+    document.querySelector('.selected-date').innerHTML = forWhat;
+}
+function aestheticControl(addedClass){
+    body.className = addedClass
+}
 
-let timer = setInterval(showRemaining(newyear), 1000);
+//default style
+let timer = setInterval(showRemaining(newYear), 1000);
+document.querySelector('.selected-date').innerHTML = 'new year';
 
 
 let selectEvent = (event) => {
-    let selected = event.target.id // 'christmas'
+    let selected = event.target.id // 'christmas' - comes in as a string
 
+    //change display depending on option selected. through event id
     switch(selected) {
-        case "newyear":
-            setInterval(showRemaining(newyear), 1000)
+        case "newYear":
+            setInterval(showRemaining(newYear), 1000);
+            theCountdown('New Years');
+            aestheticControl(selected);
             break;
 
         case "christmas":
-            setInterval(showRemaining(christmas), 1000)
+            setInterval(showRemaining(christmas), 1000);
+            theCountdown('Christmas');
+            aestheticControl(selected);
             break;
 
         case "halloween":
-            setInterval(showRemaining(halloween), 1000)
+            setInterval(showRemaining(halloween), 1000);
+            theCountdown('Halloween');
+            aestheticControl(selected);
             break;
 
-        case "friends-day":
-            setInterval(showRemaining(halloween), 1000)
+        case "friendsDay":
+            setInterval(showRemaining(friendsDay), 1000);
+            theCountdown('Dia del Amigo');
+            aestheticControl('friendsDay');
             break;
 
-        case "long-distance":
-            setInterval(showRemaining(halloween), 1000)
+        case "iGetToSeeThem":
+            setInterval(showRemaining(iGetToSeeThem), 1000);
+            theCountdown('I get to see them!');
+            aestheticControl('iGetToSeeThem')
             break;
             }
-    document.querySelector('.selected-date').innerHTML = selected;
+           
+    
 }
-
-options.forEach((date) => { date.addEventListener("click", selectEvent); })
-
-// seleccionamos y devolvemos que evento - vuelve undefined
-// console.log("lo que me sale undefined", selectEvent , iChoose)
-console.log("selected = ", selected)
+//pay attention to when i click on the button options and excecute function when i do
+options.forEach((date) => { date.addEventListener("click", selectEvent); });
