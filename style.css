@@ -14,27 +14,40 @@ body{
     height:100vh;
 }
 .newYear{
-    background: linear-gradient(22deg, #06324f 50%, #598c0d 10%);
+    background: linear-gradient(22deg, #8ab9d8 50%, #ffd95b 10%);
     color: white;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.397);
-
+}
+.newYear button:hover{
+    color: green;
 }
 .christmas{
-    background: linear-gradient(22deg,  #21372c 50%,  #b74947 10%);
+    background: linear-gradient(22deg,  #45755d 50%,  #b25856 10%);
     color: white;
 
 }
-
+.christmas button:hover{
+    color: rgb(191, 0, 0);
+}
 .halloween{
     background: linear-gradient(22deg, #1c1e1d 50%, #fb8037 10%);
     color: white;
 
 }
+.halloween button:hover{
+    color: rgb(246, 107, 0);
+}
 .friendsDay{
     background: linear-gradient(22deg, #5588A6 50%, #7CBFBF 10%);
 }
+.friendsDay button:hover{
+    color: rgb(0, 157, 255);
+}
 .iGetToSeeThem{
     background: linear-gradient(22deg,  #FFA0C5 50%, #FCEDF2 10%);
+}
+.iGetToSeeThem button:hover{
+    color: hotpink;
 }
 
 header{
@@ -60,7 +73,6 @@ button{
 }
 button:hover{
     background-color: var(--var-header);
-    color: hotpink;
 }
 .text-above{
     text-align: center;

@@ -19,16 +19,21 @@ let halloween = new Date(`October 31, ${YEAR}  00:00:01`);
 let friendsDay = new Date(`July 20, ${YEAR}  00:00:01`);
 let iGetToSeeThem = new Date(`November 21, 2022 00:00:01`);
 
+
 const _second = 1000;
 const _minute = _second * 60 ;
 const _hour = _minute * 60;
 const _day = _hour * 24;
 
+function calculateRemaining(end){
+    let howLongLeft =  end - today ;
 
-
-function showRemaining(end){
-    let howLongLeft =  end - today  ;
-
+    if (howLongLeft == 0){
+        currentDateDisplay.innerHTML = today;
+        document.querySelector('.text-above').innerHTML = 'ITS TODAY!';
+        return;
+    }
+    
     //divide difference
     let days = Math.floor(howLongLeft / _day);
     let hours = Math.floor((howLongLeft % _day) / _hour);
@@ -37,72 +42,61 @@ function showRemaining(end){
     
     //show in dom
     currentDateDisplay.innerHTML = today;
-    daysDisplay.innerHTML = days + ' dias';
-    hoursDisplay.innerHTML = hours + ' horas';
-    minutesDisplay.innerHTML = minutes + ' minutos';
-    secondsDisplay.innerHTML = seconds + ' segundos';  
-    
-    setInterval(function(){
-    ++howLongLeft
-    localStorage.setItem('howlongleft',howLongLeft);
-    }, 1000);
+    daysDisplay.innerHTML = days + ' days';
+    hoursDisplay.innerHTML = hours + ' hours';
+    minutesDisplay.innerHTML = minutes + ' minutes';
+    secondsDisplay.innerHTML = seconds + ' seconds';  
+
+    howLongLeft--
+}
+
+function showRemaining(){
 
     let selectEvent = (event) => {
         let selected = event.target.id // 'christmas' - comes in as a string
-    
         //change display depending on option selected. through event id
         switch(selected) {
             case "newYear":
-                setInterval(function(){
-                    --howLongLeft
-                    showRemaining(newYear)
-                    localStorage.setItem('newYear',newYear);
-                    }, 1000);
-                theCountdown('New Years');
-                aestheticControl(selected);
+                everythingToDo(newYear, 'New Years', selected)
                 break;
     
             case "christmas":
-                setInterval(showRemaining(christmas), 1000);
-                theCountdown('Christmas');
-                aestheticControl(selected);
+                everythingToDo(christmas, 'Christmas', selected)
                 break;
     
             case "halloween":
-                setInterval(showRemaining(halloween), 1000);
-                theCountdown('Halloween');
-                aestheticControl(selected);
+                everythingToDo(halloween, 'Halloween', selected)
                 break;
     
             case "friendsDay":
-                setInterval(showRemaining(friendsDay), 1000);
-                theCountdown('Dia del Amigo');
-                aestheticControl('friendsDay');
+                everythingToDo(friendsDay, 'Dia del Amigo', selected)
                 break;
     
             case "iGetToSeeThem":
-                setInterval(showRemaining(iGetToSeeThem), 1000);
-                theCountdown('I get to see them!');
-                aestheticControl('iGetToSeeThem')
+                everythingToDo(iGetToSeeThem, 'I get to see them!', selected)
                 break;
-                }
-               
-        
+                }    
     }
     //pay attention to when i click on the button options and excecute function when i do
     options.forEach((date) => { date.addEventListener("click", selectEvent); });
-    
 }
-function theCountdown(forWhat){
+
+function everythingToDo(variable, textShown, selected){
+    setTimeout(calculateRemaining(variable), 1000);
+    theCountdownName(textShown);
+    aestheticControl(selected);
+}
+
+function theCountdownName(forWhat){
+    document.querySelector('.text-above').innerHTML = 'So many...';
     document.querySelector('.selected-date').innerHTML = forWhat;
 }
+
 function aestheticControl(addedClass){
     body.className = addedClass
 }
 
 //default style
-
-document.querySelector('.selected-date').innerHTML = 'I get to see them!';
-
-
-showRemaining(iGetToSeeThem)
+document.querySelector('.text-above').innerHTML = 'Click to Start!';
+document.querySelector('.selected-date').innerHTML = '.....';
+showRemaining()
