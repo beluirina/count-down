@@ -7,9 +7,9 @@ let secondsDisplay = document.querySelector('.sec');
 let options = document.querySelectorAll(".options");
 let body = document.querySelector('body');
 
-let today = new Date();
 
 // SELECTION OPTIONS - END DATES
+let today = new Date();
 const YEAR = today.getFullYear();
 console.log('this year is =>',YEAR);
 
@@ -26,13 +26,14 @@ const _hour = _minute * 60;
 const _day = _hour * 24;
 
 function calculateRemaining(end){
+    let today = new Date();
     let howLongLeft =  end - today ;
 
     if (howLongLeft == 0){
         currentDateDisplay.innerHTML = today;
         document.querySelector('.text-above').innerHTML = 'ITS TODAY!';
         return;
-    }
+}
     
     //divide difference
     let days = Math.floor(howLongLeft / _day);
@@ -47,7 +48,6 @@ function calculateRemaining(end){
     minutesDisplay.innerHTML = minutes + ' minutes';
     secondsDisplay.innerHTML = seconds + ' seconds';  
 
-    howLongLeft--
 }
 
 function showRemaining(){
@@ -82,7 +82,7 @@ function showRemaining(){
 }
 
 function everythingToDo(variable, textShown, selected){
-    setTimeout(calculateRemaining(variable), 1000);
+    setInterval(()=>calculateRemaining(variable), 1000);
     theCountdownName(textShown);
     aestheticControl(selected);
 }
