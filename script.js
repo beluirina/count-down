@@ -9,7 +9,7 @@ let body = document.querySelector('body');
 
 
 // SELECTION OPTIONS - END DATES
-let today = new Date();
+ today = new Date();
 const YEAR = today.getFullYear();
 console.log('this year is =>',YEAR);
 
@@ -25,13 +25,46 @@ const _minute = _second * 60 ;
 const _hour = _minute * 60;
 const _day = _hour * 24;
 
+let howLongLeft
+
+//event listener
+let selectEvent = (event) => {
+
+    let selected = event.target.id // 'christmas' - comes in as a string
+
+    //change display depending on option selected. through event id
+    switch(selected) {
+        case "newYear":
+            everythingToDo(newYear, 'New Years', selected)
+            break;
+
+        case "christmas":
+            everythingToDo(christmas, 'Christmas', selected)
+            break;
+
+        case "halloween":
+            everythingToDo(halloween, 'Halloween', selected)
+            break;
+
+        case "friendsDay":
+            everythingToDo(friendsDay, 'Dia del Amigo', selected)
+            break;
+
+        case "iGetToSeeThem":
+            everythingToDo(iGetToSeeThem, 'I get to see them!', selected)
+            break;
+            }    
+}
+//pay attention to when i click on the button options and excecute function when i do
+options.forEach((date) => { date.addEventListener("click", selectEvent); });
+
 function calculateRemaining(end){
     let today = new Date();
-    let howLongLeft =  end - today ;
+    howLongLeft =  end - today ;
 
-    if (howLongLeft == 0){
+    if (howLongLeft <= 0){
         currentDateDisplay.innerHTML = today;
-        document.querySelector('.text-above').innerHTML = 'ITS TODAY!';
+        document.querySelector('.text-above').innerHTML = 'ITS TODAY/expired!';
         return;
 }
     
@@ -50,39 +83,10 @@ function calculateRemaining(end){
 
 }
 
-function showRemaining(){
-
-    let selectEvent = (event) => {
-        let selected = event.target.id // 'christmas' - comes in as a string
-        //change display depending on option selected. through event id
-        switch(selected) {
-            case "newYear":
-                everythingToDo(newYear, 'New Years', selected)
-                break;
-    
-            case "christmas":
-                everythingToDo(christmas, 'Christmas', selected)
-                break;
-    
-            case "halloween":
-                everythingToDo(halloween, 'Halloween', selected)
-                break;
-    
-            case "friendsDay":
-                everythingToDo(friendsDay, 'Dia del Amigo', selected)
-                break;
-    
-            case "iGetToSeeThem":
-                everythingToDo(iGetToSeeThem, 'I get to see them!', selected)
-                break;
-                }    
-    }
-    //pay attention to when i click on the button options and excecute function when i do
-    options.forEach((date) => { date.addEventListener("click", selectEvent); });
-}
-
+let interval
 function everythingToDo(variable, textShown, selected){
-    setInterval(()=>calculateRemaining(variable), 1000);
+    clearInterval(interval);
+    interval = setInterval(()=>calculateRemaining(variable), 1000);
     theCountdownName(textShown);
     aestheticControl(selected);
 }
@@ -99,4 +103,3 @@ function aestheticControl(addedClass){
 //default style
 document.querySelector('.text-above').innerHTML = 'Click to Start!';
 document.querySelector('.selected-date').innerHTML = '.....';
-showRemaining()
